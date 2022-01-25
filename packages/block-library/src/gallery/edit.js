@@ -551,7 +551,8 @@ function GalleryEdit( props ) {
 				/>
 			</BlockControls>
 			{ noticeUI }
-			{ gap &&
+			{ Platform.isWeb &&
+				gap &&
 				styleElement &&
 				createPortal( <GapStyle />, styleElement ) }
 			<Gallery
