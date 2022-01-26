@@ -8,6 +8,7 @@ import { useRef, useState, useEffect, createPortal } from '@wordpress/element';
  * Internal dependencies
  */
 import useSlot from './use-slot';
+import StyleProvider from '../../style-provider';
 
 function useForceUpdate() {
 	const [ , setState ] = useState( {} );
@@ -48,5 +49,11 @@ export default function Fill( { name, children } ) {
 		children = children( slot.fillProps );
 	}
 
-	return createPortal( children, slot.ref.current );
+	const wrappedChildren = (
+		<StyleProvider document={ slot.ref.current.ownerDocument }>
+			{ children }
+		</StyleProvider>
+	);
+
+	return createPortal( wrappedChildren, slot.ref.current );
 }
